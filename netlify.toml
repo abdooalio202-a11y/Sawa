@@ -1,0 +1,13 @@
+# ملف إثبات ملكية Google يبقى على الرابط القديم
+[[redirects]]
+  from = "https://sawa-samawa.netlify.app/googlea397f03e1b90a123.html"
+  to = "/googlea397f03e1b90a123.html"
+  status = 200
+  force = true
+
+# كل ما عداه ينتقل إلى النطاق الجديد
+[[redirects]]
+  from = "https://sawa-samawa.netlify.app/*"
+  to = "https://swa-samawa.lol/:splat"
+  status = 301
+  force = true
