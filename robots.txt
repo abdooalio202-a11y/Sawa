@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sawa-samawa.netlify.app/sitemap.xml
+Sitemap: https://swa-samawa.lol/sitemap.xml
