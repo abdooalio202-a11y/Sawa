@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "lol.swa_samawa.twa",
+      "sha256_cert_fingerprints": [
+        "E0:EC:90:7B:A1:69:C1:1E:00:90:D4:FD:9B:F3:F8:A1:BB:97:BA:74:C3:B3:67:81:65:C1:2A:19:B4:71:56:FB"
+      ]
+    }
+  }
+]
