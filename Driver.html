@@ -52,35 +52,12 @@ form select option{background:#0e1640}
 .hint{font-size:.82rem;color:var(--mut);margin-top:4px}
 .msg{min-height:1.5em;margin:12px 0 4px;color:#ff9ea1}
 .msg.info{color:#a5f3fc}
+.sent{margin-top:16px;padding:14px;border-radius:14px;background:rgba(52,226,122,.1);border:1px solid rgba(52,226,122,.4);text-align:center}.sent b{display:block}.sent p{margin:4px 0 12px;color:#c3c8e8}
 .chk{display:flex;gap:10px;align-items:flex-start;margin-top:14px;color:var(--tx)!important;line-height:1.6}
 .chk input{width:20px;height:20px;margin-top:3px;flex:none;accent-color:#4f6cf7}
 
-/* خطوات التسجيل */
-.steps{list-style:none;display:flex;padding:0;margin:0 0 14px}
-.steps li{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;position:relative;font-size:.8rem;color:var(--mut)}
-.steps li::before{content:"";position:absolute;top:10px;left:50%;width:100%;height:2px;background:var(--bd)}
-.steps li:first-child::before{display:none}
-.steps b{position:relative;z-index:1;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#0e1640;border:2px solid var(--bd);font-size:.75rem}
-.steps li.done b,.steps li.now b{background:#4f6cf7;border-color:#4f6cf7;color:#fff}
-.steps li.done::before,.steps li.now::before{background:#4f6cf7}
-.steps li.now{color:#fff;font-weight:700}
 
-.bikes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.bikes label{margin:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:12px 6px;border:1px solid var(--bd);border-radius:14px;background:rgba(10,15,44,.5);color:var(--tx);text-align:center;cursor:pointer}
-.bikes label span{font-size:1.6rem;line-height:1.2}
-.bikes label small{color:var(--mut);font-size:.75rem}
-.bikes{position:relative}.bikes input{position:absolute;top:0;right:0;width:1px;height:1px;margin:0;opacity:0;pointer-events:none}
-.bikes input:checked + label{border-color:#a78bfa;background:rgba(139,92,246,.18);box-shadow:0 0 16px rgba(139,92,246,.35)}
-.bikes input:focus-visible + label{outline:3px solid var(--acc)}
 
-.shots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.shot{margin:0!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:120px;border:1.5px dashed rgba(148,163,255,.4);border-radius:14px;background:rgba(10,15,44,.5);color:var(--tx)!important;text-align:center;padding:10px;cursor:pointer;position:relative;overflow:hidden}
-.shot.wide{grid-column:1/-1}
-.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
-.shot span,.shot small{position:relative;z-index:1}
-.shot small{color:var(--mut);font-size:.78rem}
-.shot.has{border-style:solid;border-color:var(--ok)}
-.shot.has small{color:#bff7d3}
 
 /* رأس الواجهة: زر الاتصال هو الشريط كله */
 .top{position:sticky;top:0;z-index:5;background:rgba(11,18,48,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--bd);padding:calc(10px + env(safe-area-inset-top,0px)) 16px 14px}
@@ -146,74 +123,33 @@ form select option{background:#0e1640}
   <div class="wrap">
     <div class="seg" role="tablist">
       <button type="button" role="tab" aria-selected="true" data-auth="login">دخول</button>
-      <button type="button" role="tab" aria-selected="false" data-auth="register">سجّل كمندوب</button>
+      <button type="button" role="tab" aria-selected="false" data-auth="join">انضم كمندوب</button>
     </div>
 
     <form id="loginForm" class="box" novalidate>
-      <label for="lPhone">رقم الموبايل</label>
-      <input id="lPhone" name="phone" type="tel" inputmode="numeric" dir="ltr" placeholder="07XXXXXXXXX" autocomplete="tel">
-      <label for="lPass">كلمة السر</label>
+      <label for="lEmail">الإيميل</label>
+      <input id="lEmail" name="email" type="email" dir="ltr" placeholder="name@example.com" autocomplete="username" autocapitalize="off">
+      <div class="hint">الإيميل والرمز تنطيك إياهم إدارة سوا بعد قبولك.</div>
+      <label for="lPass">الرمز</label>
       <input id="lPass" name="password" type="password" dir="ltr" autocomplete="current-password">
       <p class="msg" id="loginMsg" role="status"></p>
       <button class="btn" type="submit" id="loginBtn">دخول</button>
     </form>
 
-    <form id="regForm" class="box" novalidate hidden>
-      <ol class="steps" aria-label="خطوات التسجيل">
-        <li class="now"><b>1</b>معلوماتك</li>
-        <li><b>2</b>الدراجة</li>
-        <li><b>3</b>الصور</li>
-      </ol>
-
-      <div data-step="1">
-        <label for="rName">الاسم الثلاثي</label>
-        <input id="rName" name="name" autocomplete="name">
-        <label for="rPhone">رقم الموبايل</label>
-        <input id="rPhone" name="phone" type="tel" inputmode="numeric" dir="ltr" placeholder="07XXXXXXXXX" autocomplete="tel">
-        <label for="rNid">رقم البطاقة الوطنية</label>
-        <input id="rNid" name="nid" inputmode="numeric" dir="ltr" maxlength="14" placeholder="12 رقم">
-        <div class="hint">الرقم المكتوب على وجه البطاقة الوطنية الموحدة.</div>
-        <label for="rBirth">تاريخ الميلاد</label>
-        <input id="rBirth" name="birth" type="date" dir="ltr">
-        <label for="rArea">المنطقة أو الحي اللي تسكن بيه</label>
-        <input id="rArea" name="area">
-        <label for="rPass">كلمة السر (6 أحرف أو أكثر)</label>
-        <input id="rPass" name="password" type="password" dir="ltr" autocomplete="new-password">
-      </div>
-
-      <div data-step="2" hidden>
-        <label id="bikeLbl">نوع الدراجة النارية</label>
-        <div class="bikes" role="radiogroup" aria-labelledby="bikeLbl">
-          <input type="radio" name="bike" id="b1" value="دراجة عادية"><label for="b1"><span>🏍️</span>عادية<small>هوندا وأمثالها</small></label>
-          <input type="radio" name="bike" id="b2" value="سكوتر"><label for="b2"><span>🛵</span>سكوتر<small>فيسبا وأمثالها</small></label>
-          <input type="radio" name="bike" id="b3" value="رياضية"><label for="b3"><span>🏁</span>رياضية<small>محرك كبير</small></label>
-          <input type="radio" name="bike" id="b4" value="كهربائية"><label for="b4"><span>⚡</span>كهربائية<small>بطارية</small></label>
-          <input type="radio" name="bike" id="b5" value="ستوتة"><label for="b5"><span>🛺</span>ستوتة<small>ثلاثية بصندوق</small></label>
-          <input type="radio" name="bike" id="b6" value="غيرها"><label for="b6"><span>➕</span>غيرها<small>اكتبها بالاسم</small></label>
-        </div>
-        <label for="rModel">اسم الدراجة</label>
-        <input id="rModel" name="model" placeholder="مثلاً: هوندا، بجاج، كيوي">
-        <label id="plLbl">هل الدراجة مرقّمة؟</label>
-        <div class="bikes two" role="radiogroup" aria-labelledby="plLbl">
-          <input type="radio" name="plated" id="p1" value="1"><label for="p1"><span>🔢</span>مرقّمة<small>عليها لوحة</small></label>
-          <input type="radio" name="plated" id="p0" value="0"><label for="p0"><span>➖</span>غير مرقّمة<small>بدون لوحة</small></label>
-        </div>
-        <label class="chk"><input type="checkbox" name="pledge"> أتعهد إن المعلومات صحيحة، والدراجة ملكي أو مخوّل أسوقها.</label>
-      </div>
-
-      <div data-step="3" hidden>
-        <p class="hint" style="margin-top:0">الصور توصل للإدارة فقط حتى تتأكد من هويتك. صوّر بمكان مضوي وخلي الكتابة واضحة.</p>
-        <div class="shots">
-          <label class="shot"><input class="sr" type="file" accept="image/*" data-file="idFront"><img alt="" hidden><span>🪪 وجه البطاقة</span><small>اضغط للتصوير</small></label>
-          <label class="shot"><input class="sr" type="file" accept="image/*" data-file="idBack"><img alt="" hidden><span>🪪 ظهر البطاقة</span><small>اضغط للتصوير</small></label>
-          <label class="shot wide"><input class="sr" type="file" accept="image/*" data-file="selfie"><img alt="" hidden><span>🙂 صورتك الشخصية</span><small>واضحة للوجه</small></label>
-        </div>
-      </div>
-
-      <p class="msg" id="regMsg" role="status"></p>
-      <div class="row2">
-        <button class="btn gh" type="button" id="backBtn" hidden>رجوع</button>
-        <button class="btn" type="button" id="nextBtn">التالي</button>
+    <form id="joinForm" class="box" novalidate hidden>
+      <p class="hint" style="margin-top:0">املأ معلوماتك وطلبك يوصل لإدارة سوا على واتساب. بعدها نتواصل وياك نكمّل باقي التفاصيل، وننطيك إيميل ورمز تدخل بيهم للتطبيق.</p>
+      <label for="jName">الاسم الثلاثي</label>
+      <input id="jName" name="name" autocomplete="name">
+      <label for="jPhone">رقم الموبايل</label>
+      <input id="jPhone" name="phone" type="tel" inputmode="numeric" dir="ltr" placeholder="07XXXXXXXXX" autocomplete="tel">
+      <label for="jBike">نوع الدراجة النارية</label>
+      <input id="jBike" name="bike">
+      <p class="msg" id="joinMsg" role="status"></p>
+      <button class="btn cy" type="submit">أرسل الطلب على واتساب</button>
+      <div class="sent" id="joinSent" hidden>
+        <b>انفتح الواتساب؟</b>
+        <p>اضغط إرسال بالواتساب حتى يوصلنا طلبك. إدارة سوا راح تتواصل وياك قريباً.</p>
+        <a class="btn gh" id="joinAgain" href="#">ما انفتح؟ اضغط هنا</a>
       </div>
     </form>
   </div>
@@ -223,7 +159,7 @@ form select option{background:#0e1640}
 <section data-screen="wait" hidden>
   <div class="wrap center">
     <header class="hero" style="padding-bottom:0"><div class="logo"><img data-logo src="" alt="سوا"></div></header>
-    <h2 id="waitTitle">طلبك وصل للإدارة</h2>
+    <h2 id="waitTitle">حسابك بانتظار التفعيل</h2>
     <p id="waitMsg"></p>
     <button class="btn" id="recheck" type="button">تحقّق من حالة الحساب</button>
     <a class="btn gh" id="callSawa" href="#">اتصل بإدارة سوا</a>
@@ -306,109 +242,40 @@ function api(path,o){o=o||{};
   })
 }
 function rpc(n,b){return api("rpc/"+n,{method:"POST",body:b||{}})}
-function upload(path,blob){
-  return refreshSes().then(function(){
-    return fetch(SB_URL+"/storage/v1/object/driver-docs/"+path,{method:"POST",headers:{apikey:SB_KEY,Authorization:"Bearer "+SES.a,"Content-Type":"image/jpeg","x-upsert":"true"},body:blob})
-  }).then(function(r){if(!r.ok)return r.text().then(function(t){var x=new Error("upload");x.body=t;throw x})})
-}
 function phoneEmail(p){return digits(p)+"@"+EMAIL_DOMAIN}
 
 /* ---------- تبديل الدخول / التسجيل ---------- */
 function authTab(k){
   $$("[data-auth]").forEach(function(b){b.setAttribute("aria-selected",b.dataset.auth==k)});
-  $("#loginForm").hidden=k!="login";$("#regForm").hidden=k!="register";
+  $("#loginForm").hidden=k!="login";$("#joinForm").hidden=k!="join";
 }
 $$("[data-auth]").forEach(function(b){b.onclick=function(){authTab(b.dataset.auth)}});
 
 $("#loginForm").onsubmit=function(e){
   e.preventDefault();var f=e.target,m=$("#loginMsg"),b=$("#loginBtn");
-  var ph=digits(f.phone.value);
-  if(!/^07\d{9}$/.test(ph)){m.textContent="اكتب رقم الموبايل بالشكل 07XXXXXXXXX";return}
-  if(!f.password.value){m.textContent="اكتب كلمة السر";return}
+  var id=f.email.value.trim(),em=id.indexOf("@")>-1?id.toLowerCase():(/^07\d{9}$/.test(digits(id))?phoneEmail(id):"");
+  if(!em){m.textContent="اكتب الإيميل اللي انطتك إياه إدارة سوا";return}
+  if(!f.password.value){m.textContent="اكتب الرمز";return}
   m.textContent="";b.disabled=true;b.textContent="جارِ الدخول…";
-  authCall("token?grant_type=password",{email:phoneEmail(ph),password:f.password.value})
+  authCall("token?grant_type=password",{email:em,password:f.password.value})
   .then(function(d){setSes(d);return loadProfile()})
-  .catch(function(x){m.textContent=x.status==400||x.status==401?"الرقم أو كلمة السر غلط":x.status==429?"محاولات كثيرة، انتظر شوية وحاول":"ما صار الاتصال، تأكد من الإنترنت"})
+  .catch(function(x){m.textContent=x.status==400||x.status==401?"الإيميل أو الرمز غلط":x.status==429?"محاولات كثيرة، انتظر شوية وحاول":"ما صار الاتصال، تأكد من الإنترنت"})
   .then(function(){b.disabled=false;b.textContent="دخول"});
 };
 
-/* ---------- التسجيل بثلاث خطوات ---------- */
-var step=1,files={};
-function setStep(n){
-  step=n;
-  $$("[data-step]").forEach(function(s){s.hidden=+s.dataset.step!==n});
-  $$(".steps li").forEach(function(li,i){li.classList.toggle("done",i+1<n);li.classList.toggle("now",i+1===n)});
-  $("#backBtn").hidden=n===1;$("#nextBtn").textContent=n===3?"أرسل طلب الانضمام":"التالي";
-  $("#regMsg").textContent="";$("#regMsg").className="msg";window.scrollTo(0,0);
-}
-function age(d){var b=new Date(d),n=new Date(),a=n.getFullYear()-b.getFullYear();if(n<new Date(n.getFullYear(),b.getMonth(),b.getDate()))a--;return a}
-function checkStep(n){
-  var f=$("#regForm"),v=function(k){return(f.elements[k].value||"").trim()};
-  if(n===1){
-    if(v("name").split(/\s+/).length<3)return"اكتب اسمك الثلاثي";
-    if(!/^07\d{9}$/.test(digits(v("phone"))))return"اكتب رقم الموبايل بالشكل 07XXXXXXXXX";
-    if(!/^\d{12}$/.test(digits(v("nid"))))return"رقم البطاقة الوطنية لازم يكون 12 رقم";
-    if(!v("birth"))return"اختار تاريخ ميلادك";
-    var a=age(v("birth"));if(a<18)return"لازم يكون عمرك 18 سنة أو أكثر";if(a>75)return"تأكد من تاريخ الميلاد";
-    if(!v("area"))return"اكتب منطقتك";
-    if(!SES&&v("password").length<6)return"كلمة السر لازم 6 أحرف أو أكثر";
-  }
-  if(n===2){
-    if(!f.querySelector("[name=bike]:checked"))return"اختار نوع الدراجة";
-    if(!v("model"))return"اكتب اسم الدراجة";
-    if(!f.querySelector("[name=plated]:checked"))return"اختار إذا الدراجة مرقّمة أو لا";
-    if(!f.elements.pledge.checked)return"لازم توافق على التعهد";
-  }
-  if(n===3){if(!files.idFront||!files.idBack||!files.selfie)return"صوّر البطاقة من الوجهين وصورتك الشخصية"}
-  return"";
-}
-$("#backBtn").onclick=function(){setStep(step-1)};
-$("#nextBtn").onclick=function(){var err=checkStep(step);if(err){$("#regMsg").textContent=err;return}if(step<3)setStep(step+1);else submitReg()};
-
-$$("[data-file]").forEach(function(inp){inp.onchange=function(){
-  var f=inp.files&&inp.files[0],box=inp.parentNode,img=box.querySelector("img");if(!f)return;
-  files[inp.dataset.file]=f;img.src=URL.createObjectURL(f);img.hidden=false;box.classList.add("has");box.querySelector("small").textContent="✓ تم، اضغط للتغيير";
-}});
-
-function compress(file){return new Promise(function(res,rej){
-  var u=URL.createObjectURL(file),img=new Image();
-  img.onload=function(){var mx=1400,k=Math.min(1,mx/Math.max(img.width,img.height)),c=document.createElement("canvas");
-    c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);
-    c.toBlob(function(b){b?res(b):rej(new Error("img"))},"image/jpeg",.82)};
-  img.onerror=function(){URL.revokeObjectURL(u);rej(new Error("img"))};img.src=u;
-})}
-
-function regMsg(t,info){var m=$("#regMsg");m.textContent=t;m.className="msg"+(info?" info":"")}
-function submitReg(){
-  var f=$("#regForm"),v=function(k){return(f.elements[k].value||"").trim()},b=$("#nextBtn"),ph=digits(v("phone"));
-  b.disabled=true;$("#backBtn").disabled=true;regMsg("جارِ إنشاء الحساب…",1);
-  var p=SES?Promise.resolve():authCall("signup",{email:phoneEmail(ph),password:v("password")}).then(function(d){
-    if(!d.access_token){var e=new Error("confirm");e.code="confirm";throw e}setSes(d)});
-  var paths={};
-  p.then(function(){
-    var keys=["idFront","idBack","selfie"],i=0;
-    function next(){if(i>=keys.length)return Promise.resolve();var k=keys[i++];regMsg("جارِ رفع الصور ("+i+" من 3)…",1);
-      return compress(files[k]).then(function(bl){var path=SES.u+"/"+k+".jpg";paths[k]=path;return upload(path,bl)}).then(next)}
-    return next();
-  }).then(function(){
-    regMsg("جارِ حفظ معلوماتك…",1);
-    return api("drivers",{method:"POST",prefer:"return=minimal",body:{
-      id:SES.u,full_name:v("name"),phone:ph,national_id:digits(v("nid")),birth_date:v("birth"),area:v("area"),
-      bike_type:f.querySelector("[name=bike]:checked").value,bike_name:v("model"),bike_plated:f.querySelector("[name=plated]:checked").value=="1",
-      id_front:paths.idFront,id_back:paths.idBack,selfie:paths.selfie}});
-  }).then(loadProfile).catch(function(x){
-    var t=(x.message||"")+" "+(x.body||"");
-    if(x.code=="confirm")regMsg("لازم الإدارة تطفي خيار تأكيد البريد بإعدادات Supabase.");
-    else if(/already|exists/i.test(x.message)&&!x.body)regMsg("هذا الرقم مسجّل من قبل، سوّي دخول.");
-    else if(/signup.*(not allowed|disabled)/i.test(t))regMsg("التسجيل مقفول حالياً، تواصل ويه إدارة سوا.");
-    else if(/national_id/.test(t))regMsg("رقم البطاقة الوطنية هذا مسجّل لمندوب ثاني.");
-    else if(/drivers_phone/.test(t))regMsg("رقم الموبايل هذا مسجّل لمندوب ثاني.");
-    else if(/drivers_pkey/.test(t))loadProfile();
-    else if(x.message=="img")regMsg("وحدة من الصور ما انقرت، صوّرها من جديد.");
-    else if(x.message=="upload")regMsg("ما انرفعت الصور، تأكد من الإنترنت وحاول مرة ثانية.");
-    else regMsg("ما تم التسجيل، تأكد من الإنترنت وحاول مرة ثانية.");
-  }).then(function(){b.disabled=false;$("#backBtn").disabled=false});
-}
+/* ---------- طلب الانضمام على واتساب ---------- */
+var joinUrl="";
+function openWa(u){var w=null;try{w=window.open(u,"_blank")}catch(x){}if(!w)location.href=u}
+$("#joinForm").onsubmit=function(e){
+  e.preventDefault();var f=e.target,m=$("#joinMsg"),name=f.name.value.trim().replace(/\s+/g," "),ph=digits(f.phone.value),bk=f.bike.value.trim();
+  if(name.split(" ").length<3){m.textContent="اكتب اسمك الثلاثي";return}
+  if(!/^07\d{9}$/.test(ph)){m.textContent="اكتب رقم الموبايل بالشكل 07XXXXXXXXX";return}
+  if(!bk){m.textContent="اكتب نوع الدراجة";return}
+  m.textContent="";
+  var txt="طلب انضمام مندوب - سوا للتوصيل\nالاسم: "+name+"\nالموبايل: "+ph+"\nنوع الدراجة: "+bk;
+  joinUrl="https://wa.me/964"+digits(SAWA_PHONE).replace(/^0/,"")+"?text="+encodeURIComponent(txt);
+  $("#joinAgain").href=joinUrl;$("#joinSent").hidden=false;openWa(joinUrl);
+};
 
 /* ---------- الحساب ---------- */
 var profile=null,online=false,tab="new",avail=[],mine=[],seen={},seenReady=false,timer=null,busy=false,audioCtx=null;
@@ -418,12 +285,12 @@ $("#recheck").onclick=function(){loadProfile()};
 function loadProfile(){
   return api("drivers?select=full_name,status,is_online&id=eq."+SES.u).then(function(l){
     var d=l&&l[0];
-    if(!d){show("auth");authTab("register");setStep(1);regMsg("حسابك موجود، كمّل معلوماتك وصورك حتى توصل للإدارة.",1);return}
+    if(!d){$("#waitTitle").textContent="حسابك بعده ما تجهّز";$("#waitMsg").textContent="الإيميل صحيح، بس إدارة سوا بعدها ما فعّلت حسابك كمندوب. تواصل ويانا.";show("wait");return}
     profile=d;
     if(d.status!="approved"){
       var bl=d.status=="blocked";
-      $("#waitTitle").textContent=bl?"حسابك موقوف":"طلبك وصل للإدارة";
-      $("#waitMsg").textContent=bl?"تواصل ويه إدارة سوا حتى تعرف السبب.":"راح نراجع معلوماتك وصور الهوية ونفعّل حسابك. إذا ردت تسرّع الموافقة اتصل بينا.";
+      $("#waitTitle").textContent=bl?"حسابك موقوف":"حسابك بانتظار التفعيل";
+      $("#waitMsg").textContent=bl?"تواصل ويه إدارة سوا حتى تعرف السبب.":"إدارة سوا راح تفعّل حسابك قريباً. إذا ردت تسرّع، اتصل بينا.";
       show("wait");return}
     $("#dName").textContent="هلا "+d.full_name.split(" ")[0];
     online=d.is_online;paintSwitch();show("main");refresh();startPoll();
